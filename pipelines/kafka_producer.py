@@ -18,10 +18,13 @@ class KafkaProducerConfig:
     Kafka producer configuration for sending analyzed documents.
 
     Environment variables (recommended):
-      - KAFKA_BOOTSTRAP_SERVERS: "host1:9092,host2:9092"
+      - KAFKA_BOOTSTRAP_SERVERS: "kaf01.hjchae.com:9092"  (recommended if broker advertises hostname)
+        - If your broker has advertised.listeners=PLAINTEXT://kaf01.hjchae.com:9092
+          clients should be able to resolve and reach kaf01.hjchae.com:9092.
+          If you only know the broker IP, set /etc/hosts (or Windows hosts) to map it.
       - KAFKA_TOPIC: "inven.sentiment"
       - KAFKA_CLIENT_ID: optional
-      - KAFKA_ACKS: "all" | "1" | "0" (default: "all")
+      - KAFKA_ACKS: "all"
       - KAFKA_RETRIES: int (default: 10)
       - KAFKA_LINGER_MS: int (default: 20)
       - KAFKA_BATCH_SIZE: int (default: 32768)
@@ -47,6 +50,7 @@ class KafkaProducerConfig:
     batch_size: int = 32768
     compression_type: str = "gzip"
 
+    # PLAINTEXT for advertised.listeners=PLAINTEXT://kaf01.hjchae.com:9092
     security_protocol: str = "PLAINTEXT"
     sasl_mechanism: Optional[str] = None
     sasl_plain_username: Optional[str] = None
@@ -61,9 +65,10 @@ class KafkaProducerConfig:
         bootstrap = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "").strip()
         topic = os.getenv("KAFKA_TOPIC", "").strip()
         if not bootstrap or not topic:
-            raise ValueError(
-                "Missing Kafka env vars. Required: KAFKA_BOOTSTRAP_SERVERS, KAFKA_TOPIC"
-            )
+            raise ValueError("Missing Kafka env vars. Required: KAFKA_BOOTSTRAP_SERVERS, KAFKA_TOPIC")
+
+        compression = os.getenv("KAFKA_COMPRESSION_TYPE", "gzip").strip()
+        compression_type = compression if compression else None
 
         return KafkaProducerConfig(
             bootstrap_servers=bootstrap,
@@ -73,7 +78,7 @@ class KafkaProducerConfig:
             retries=int(os.getenv("KAFKA_RETRIES", "10")),
             linger_ms=int(os.getenv("KAFKA_LINGER_MS", "20")),
             batch_size=int(os.getenv("KAFKA_BATCH_SIZE", "32768")),
-            compression_type=os.getenv("KAFKA_COMPRESSION_TYPE", "gzip").strip() or None,
+            compression_type=compression_type or "gzip",
             security_protocol=os.getenv("KAFKA_SECURITY_PROTOCOL", "PLAINTEXT").strip() or "PLAINTEXT",
             sasl_mechanism=os.getenv("KAFKA_SASL_MECHANISM", "").strip() or None,
             sasl_plain_username=os.getenv("KAFKA_SASL_USERNAME", "").strip() or None,
@@ -103,12 +108,6 @@ class InvenKafkaProducer:
             self._producer.close(timeout=30)
 
     def send_many(self, items: Iterable[dict[str, Any]]) -> int:
-        """
-        Send multiple items to Kafka.
-
-        Returns:
-            Number of messages successfully queued (send invoked). Delivery errors raise.
-        """
         count = 0
         for item in items:
             doc_id = str(item.get("doc_id", "")).strip()
@@ -120,11 +119,15 @@ class InvenKafkaProducer:
                 key=doc_id.encode("utf-8"),
                 value=item,
             )
+
             try:
                 metadata = future.get(timeout=30)
                 logger.debug(
                     "Produced: topic=%s partition=%s offset=%s key=%s",
-                    metadata.topic, metadata.partition, metadata.offset, doc_id
+                    metadata.topic,
+                    metadata.partition,
+                    metadata.offset,
+                    doc_id,
                 )
             except KafkaError as e:
                 logger.error("Kafka produce failed: key=%s err=%s", doc_id, e)
@@ -132,7 +135,6 @@ class InvenKafkaProducer:
 
             count += 1
 
-        # ensure delivery
         self._producer.flush(timeout=30)
         return count
 
@@ -151,7 +153,6 @@ class InvenKafkaProducer:
             "request_timeout_ms": 30000,
         }
 
-        # Security options (only applied if provided)
         sec = cfg.security_protocol.upper()
         kwargs["security_protocol"] = sec
 
@@ -165,7 +166,6 @@ class InvenKafkaProducer:
             kwargs["sasl_plain_password"] = cfg.sasl_plain_password
 
         if sec in ("SSL", "SASL_SSL"):
-            # cafile is strongly recommended to verify broker cert
             if cfg.ssl_cafile:
                 kwargs["ssl_cafile"] = cfg.ssl_cafile
             if cfg.ssl_certfile:
@@ -175,6 +175,9 @@ class InvenKafkaProducer:
 
         logger.info(
             "Kafka producer ready: bootstrap=%s topic=%s security=%s client_id=%s",
-            cfg.bootstrap_servers, cfg.topic, sec, cfg.client_id
+            cfg.bootstrap_servers,
+            cfg.topic,
+            sec,
+            cfg.client_id,
         )
         return KafkaProducer(**kwargs)
