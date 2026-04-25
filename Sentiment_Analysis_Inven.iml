@@ -4,7 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
     <content url="file://$USER_HOME$/project_py/test" />
-    <orderEntry type="jdk" jdkName="C:\Users\user\anaconda3" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.13 (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
