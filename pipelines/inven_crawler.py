@@ -18,9 +18,6 @@ class InvenCrawler:
     Inven mobile board crawler (supports multiple board layouts).
     """
 
-    SIMPLE_BOARDS = {5861}   # 도화가 게시판
-    CATEGORY_BOARDS = {5558} # 직업/카테고리 게시판
-
     DISALLOWED_PATH_PATTERNS = (
         r"^/board/prevnext\.php$",
         r"^/powerbbs/prevnext\.php$",
@@ -135,21 +132,16 @@ class InvenCrawler:
     # =========================
 
     def _extract_title_from_list(self, a) -> Optional[str]:
-        # 5861
-        if self.board_id in self.SIMPLE_BOARDS:
-            el = a.select_one("span.subject")
-            if el:
-                return el.get_text(strip=True)
+        el = (
+                a.select_one("strong.subject")
+                or a.select_one("span.subject")
+                or a.select_one("div.subject")
+        )
 
-        # 5558
-        if self.board_id in self.CATEGORY_BOARDS:
-            el = (
-                    a.select_one("strong.subject")
-                    or a.select_one("span.subject")
-                    or a.select_one("div.subject")
-            )
-            if el:
-                return el.get_text(strip=True)
+        if el:
+            title = el.get_text(strip=True)
+            if title:
+                return title
 
         return None
 

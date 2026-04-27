@@ -1,0 +1,178 @@
+{
+  "boards": [
+    {
+      "board_id": 5343,
+      "board_name": "디스트로이어",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5343",
+      "enabled": true
+    },
+    {
+      "board_id": 5339,
+      "board_name": "워로드",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5339",
+      "enabled": true
+    },
+    {
+      "board_id": 5341,
+      "board_name": "버서커",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5341",
+      "enabled": true
+    },
+    {
+      "board_id": 5558,
+      "board_name": "홀리나이트",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5558",
+      "enabled": true
+    },
+    {
+      "board_id": 5995,
+      "board_name": "슬레이어",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5995",
+      "enabled": true
+    },
+    {
+      "board_id": 6335,
+      "board_name": "발키리",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/6335",
+      "enabled": true
+    },
+    {
+      "board_id": 5342,
+      "board_name": "배틀마스터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5342",
+      "enabled": true
+    },
+    {
+      "board_id": 5340,
+      "board_name": "인파이터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5340",
+      "enabled": true
+    },
+    {
+      "board_id": 5344,
+      "board_name": "기공사",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5344",
+      "enabled": true
+    },
+    {
+      "board_id": 5434,
+      "board_name": "창술사",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5434",
+      "enabled": true
+    },
+    {
+      "board_id": 5709,
+      "board_name": "스트라이커",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5709",
+      "enabled": true
+    },
+    {
+      "board_id": 6155,
+      "board_name": "브레이커",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/6155",
+      "enabled": true
+    },
+    {
+      "board_id": 5345,
+      "board_name": "데몬헌터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5345",
+      "enabled": true
+    },
+    {
+      "board_id": 5349,
+      "board_name": "블래스터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5349",
+      "enabled": true
+    },
+    {
+      "board_id": 5347,
+      "board_name": "호크아이",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5347",
+      "enabled": true
+    },
+    {
+      "board_id": 5631,
+      "board_name": "스카우터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5631",
+      "enabled": true
+    },
+    {
+      "board_id": 5708,
+      "board_name": "건슬링어",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5708",
+      "enabled": true
+    },
+    {
+      "board_id": 5350,
+      "board_name": "바드",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5350",
+      "enabled": true
+    },
+    {
+      "board_id": 5348,
+      "board_name": "서머너",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5348",
+      "enabled": true
+    },
+    {
+      "board_id": 5346,
+      "board_name": "아르카나",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5346",
+      "enabled": true
+    },
+    {
+      "board_id": 5770,
+      "board_name": "소서리스",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5770",
+      "enabled": true
+    },
+    {
+      "board_id": 5497,
+      "board_name": "블레이드",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5497",
+      "enabled": true
+    },
+    {
+      "board_id": 5498,
+      "board_name": "데모닉",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5498",
+      "enabled": true
+    },
+    {
+      "board_id": 5647,
+      "board_name": "리퍼",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5647",
+      "enabled": true
+    },
+    {
+      "board_id": 5996,
+      "board_name": "소울이터",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5996",
+      "enabled": true
+    },
+    {
+      "board_id": 5861,
+      "board_name": "도화가",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5861",
+      "enabled": true
+    },
+    {
+      "board_id": 5862,
+      "board_name": "기상술사",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/5862",
+      "enabled": true
+    },
+    {
+      "board_id": 6334,
+      "board_name": "환수사",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/6334",
+      "enabled": true
+    },
+    {
+      "board_id": 6469,
+      "board_name": "가디언나이트",
+      "board_base_url": "https://m.inven.co.kr/board/lostark/6469",
+      "enabled": true
+    }
+  ]
+}
